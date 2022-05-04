@@ -9,7 +9,7 @@ navbar:
       href: script3.html   
   right:
     - icon: fa-github
-      href: https://github.com/beababa/beababa.github.io
+      href: https://github.com/perraud-louis/perraud-louis.github.io
 output: 
   html_document:
     toc_float: TRUE  
