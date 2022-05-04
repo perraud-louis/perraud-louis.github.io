@@ -23,22 +23,26 @@ knitr::opts_chunk$set(warning = FALSE)
 Nous allons importer deux documents, un concernant les votes, l'autre contenant les données de l'Insee.
 
 ## Document Insee
-```{r, eval=F}
+```{r}
 library(sf)
+```
+
+```{r}
 donnee<- st_read("data/insee.gpkg")
 ```
+
  Ce document gpkg, donc spatial, comporte plusieurs couches.
-```{r,eval=F}
+```{r}
 st_layers("data/insee.gpkg")
 ```
  Deux couches existent : "idf", île-de-France et "bondy". Notre étude se portera sur Bondy, c'est donc cette couche qui nous intéressera.
 
-```{r, eval=F}
+```{r}
 Insee_bondy <- st_read("data/insee.gpkg","bondy")
 summary(Insee_bondy)
 ```
  On voit qu'il s'agit d'un ensemble de variable (dictionnaire des variables : https://www.insee.fr/fr/statistiques/4176290?sommaire=4176305#dictionnaire) mesuré pour chaque carreau d'un carroyage de 188 carreaux. On peut vérifier que tous les carreaux ont la même superficie :
-```{r, eval=F}
+```{r}
 summary(Insee_bondy$surf_km2)
 ```
  Ils ont bien la même superficie.
@@ -46,20 +50,16 @@ summary(Insee_bondy$surf_km2)
 ## Document vote
 
 
-```{r, eval=F}
+```{r}
 st_read("data/vote.gpkg")
 ```
 Ce dataframe sf contient également plusieurs couches.
-```{r, eval=F}
+```{r}
 st_layers("data/vote.gpkg")
 ```
 On retrouve la couche Insee_bondy déjà extraite. Les couches "zone" et "jointure" sont deux couches géométriques dont les variables définissent les 32 bureaux de vote de Bondy. Comme la jointure contient 18 champs contre 5 pour "zone", on préférera la couche la plus riche.
 ```{r}
 Votes<- st_read("data/vote.gpkg", "jointure")
-```
-
-```{r}
- sessioninfo()
 ```
 
 
