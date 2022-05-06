@@ -388,31 +388,200 @@ contenant les données de l’Insee.</p>
 <div id="document-insee" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Document Insee</h2>
 <pre class="r"><code>library(sf)</code></pre>
-<pre class="r"><code>donnee&lt;- st_read(&quot;data/insee.gpkg&quot;)</code></pre>
+<pre class="r"><code>donnee&lt;- st_read(&quot;../data/insee.gpkg&quot;)</code></pre>
+<pre><code>## Multiple layers are present in data source C:\Users\Fujitsu E751\PERRAUD_Louis\data\insee.gpkg, reading layer `idf&#39;.
+## Use `st_layers&#39; to list all layer names and their type in a data source.
+## Set the `layer&#39; argument in `st_read&#39; to read a particular layer.
+## Reading layer `idf&#39; from data source 
+##   `C:\Users\Fujitsu E751\PERRAUD_Louis\data\insee.gpkg&#39; using driver `GPKG&#39;
+## Simple feature collection with 73214 features and 42 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 586673.7 ymin: 6780073 xmax: 738408.8 ymax: 6905080
+## Projected CRS: RGF93 / Lambert-93</code></pre>
 <p>Ce document gpkg, donc spatial, comporte plusieurs couches.</p>
-<pre class="r"><code>st_layers(&quot;data/insee.gpkg&quot;)</code></pre>
+<pre class="r"><code>st_layers(&quot;../data/insee.gpkg&quot;)</code></pre>
+<pre><code>## Driver: GPKG 
+## Available layers:
+##   layer_name geometry_type features fields
+## 1        idf                  73214     42
+## 2      bondy       Polygon      188     42</code></pre>
 <p>Deux couches existent : “idf”, île-de-France et “bondy”. Notre étude
 se portera sur Bondy, c’est donc cette couche qui nous intéressera.</p>
-<pre class="r"><code>Insee_bondy &lt;- st_read(&quot;data/insee.gpkg&quot;,&quot;bondy&quot;)
-summary(Insee_bondy)</code></pre>
+<pre class="r"><code>Insee_bondy &lt;- st_read(&quot;../data/insee.gpkg&quot;,&quot;bondy&quot;)</code></pre>
+<pre><code>## Reading layer `bondy&#39; from data source 
+##   `C:\Users\Fujitsu E751\PERRAUD_Louis\data\insee.gpkg&#39; using driver `GPKG&#39;
+## Simple feature collection with 188 features and 42 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 661088.1 ymin: 6865338 xmax: 663354.7 ymax: 6869043
+## Projected CRS: RGF93 / Lambert-93</code></pre>
+<pre class="r"><code>summary(Insee_bondy)</code></pre>
+<pre><code>##   IdINSPIRE          Id_carr1km           I_est_cr        Id_carr_n        
+##  Length:188         Length:188         Min.   :0.00000   Length:188        
+##  Class :character   Class :character   1st Qu.:0.00000   Class :character  
+##  Mode  :character   Mode  :character   Median :0.00000   Mode  :character  
+##                                        Mean   :0.07979                     
+##                                        3rd Qu.:0.00000                     
+##                                        Max.   :1.00000                     
+##      Groupe          Depcom              I_pauv   Id_car2010       
+##  Min.   :862807   Length:188         Min.   :0   Length:188        
+##  1st Qu.:866408   Class :character   1st Qu.:0   Class :character  
+##  Median :866457   Mode  :character   Median :0   Mode  :character  
+##  Mean   :867596                      Mean   :0                     
+##  3rd Qu.:870065                      3rd Qu.:0                     
+##  Max.   :870141                      Max.   :0                     
+##       Ind              Men           Men_pauv         Men_1ind     
+##  Min.   :   3.0   Min.   :  1.0   Min.   :  0.00   Min.   :  0.00  
+##  1st Qu.: 197.4   1st Qu.: 64.0   1st Qu.: 11.00   1st Qu.: 12.00  
+##  Median : 325.5   Median :110.0   Median : 22.00   Median : 23.00  
+##  Mean   : 377.5   Mean   :131.3   Mean   : 32.82   Mean   : 35.48  
+##  3rd Qu.: 498.1   3rd Qu.:174.5   3rd Qu.: 42.00   3rd Qu.: 46.25  
+##  Max.   :2012.5   Max.   :679.0   Max.   :294.00   Max.   :247.00  
+##     Men_5ind        Men_prop         Men_fmp          Ind_snv        
+##  Min.   :  0.1   Min.   :  0.00   Min.   :  0.00   Min.   :   71088  
+##  1st Qu.: 10.0   1st Qu.: 18.00   1st Qu.:  5.00   1st Qu.: 3623505  
+##  Median : 17.0   Median : 50.50   Median : 11.00   Median : 6112521  
+##  Mean   : 22.2   Mean   : 57.62   Mean   : 18.64   Mean   : 6754142  
+##  3rd Qu.: 27.0   3rd Qu.: 85.00   3rd Qu.: 25.00   3rd Qu.: 9346134  
+##  Max.   :137.0   Max.   :247.00   Max.   :162.00   Max.   :30530720  
+##     Men_surf          Men_coll         Men_mais         Log_av45     
+##  Min.   :   73.8   Min.   :  0.00   Min.   :  0.00   Min.   :  0.00  
+##  1st Qu.: 4481.0   1st Qu.: 10.00   1st Qu.: 14.00   1st Qu.:  5.30  
+##  Median : 7919.0   Median : 47.00   Median : 40.00   Median : 21.50  
+##  Mean   : 8542.2   Mean   : 88.59   Mean   : 42.69   Mean   : 31.41  
+##  3rd Qu.:11338.8   3rd Qu.:127.00   3rd Qu.: 64.00   3rd Qu.: 49.00  
+##  Max.   :37604.0   Max.   :675.00   Max.   :193.00   Max.   :200.00  
+##    Log_45_70        Log_70_90         Log_ap90         Log_inc       
+##  Min.   :  0.00   Min.   :  0.00   Min.   :  0.00   Min.   :0.00000  
+##  1st Qu.:  7.75   1st Qu.:  2.00   1st Qu.:  3.00   1st Qu.:0.00000  
+##  Median : 19.00   Median :  6.00   Median :  9.00   Median :0.00000  
+##  Mean   : 53.74   Mean   : 16.66   Mean   : 29.38   Mean   :0.09043  
+##  3rd Qu.: 60.25   3rd Qu.: 15.25   3rd Qu.: 27.75   3rd Qu.:0.00000  
+##  Max.   :626.00   Max.   :234.00   Max.   :457.00   Max.   :6.00000  
+##     Log_soc          Ind_0_3          Ind_4_5          Ind_6_10     
+##  Min.   :  0.00   Min.   :  0.00   Min.   : 0.000   Min.   :  0.20  
+##  1st Qu.:  0.00   1st Qu.: 10.00   1st Qu.: 4.375   1st Qu.: 14.38  
+##  Median :  0.00   Median : 19.75   Median :10.500   Median : 24.00  
+##  Mean   : 51.57   Mean   : 26.23   Mean   :13.079   Mean   : 31.48  
+##  3rd Qu.: 65.75   3rd Qu.: 36.25   3rd Qu.:17.125   3rd Qu.: 40.12  
+##  Max.   :675.00   Max.   :169.50   Max.   :86.000   Max.   :179.00  
+##    Ind_11_17        Ind_18_24        Ind_25_39        Ind_40_54     
+##  Min.   :  0.00   Min.   :  0.10   Min.   :  0.50   Min.   :  0.60  
+##  1st Qu.: 16.00   1st Qu.: 10.00   1st Qu.: 34.88   1st Qu.: 39.75  
+##  Median : 29.75   Median : 18.00   Median : 66.50   Median : 64.50  
+##  Mean   : 38.66   Mean   : 22.62   Mean   : 80.61   Mean   : 73.66  
+##  3rd Qu.: 48.50   3rd Qu.: 32.00   3rd Qu.:107.25   3rd Qu.: 95.25  
+##  Max.   :233.00   Max.   :154.50   Max.   :449.00   Max.   :368.00  
+##    Ind_55_64        Ind_65_79         Ind_80p         Ind_inc         I_est_1km
+##  Min.   :  0.20   Min.   :  0.20   Min.   : 0.00   Min.   : 0.000   Min.   :0  
+##  1st Qu.: 21.00   1st Qu.: 15.00   1st Qu.: 5.00   1st Qu.: 2.000   1st Qu.:0  
+##  Median : 36.00   Median : 29.00   Median :11.00   Median : 5.000   Median :0  
+##  Mean   : 41.26   Mean   : 31.64   Mean   :11.92   Mean   : 6.386   Mean   :0  
+##  3rd Qu.: 57.00   3rd Qu.: 41.00   3rd Qu.:16.00   3rd Qu.: 9.000   3rd Qu.:0  
+##  Max.   :209.00   Max.   :166.00   Max.   :48.00   Max.   :27.000   Max.   :0  
+##   code_insee            nom               nuts2            wikipedia        
+##  Length:188         Length:188         Length:188         Length:188        
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##     surf_km2                geom    
+##  Min.   :12069   POLYGON      :188  
+##  1st Qu.:12069   epsg:2154    :  0  
+##  Median :12069   +proj=lcc ...:  0  
+##  Mean   :12069                      
+##  3rd Qu.:12069                      
+##  Max.   :12069</code></pre>
 <p>On voit qu’il s’agit d’un ensemble de variable (dictionnaire des
 variables : <a href="https://www.insee.fr/fr/statistiques/4176290?sommaire=4176305#dictionnaire" class="uri">https://www.insee.fr/fr/statistiques/4176290?sommaire=4176305#dictionnaire</a>)
 mesuré pour chaque carreau d’un carroyage de 188 carreaux. On peut
 vérifier que tous les carreaux ont la même superficie :</p>
 <pre class="r"><code>summary(Insee_bondy$surf_km2)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   12069   12069   12069   12069   12069   12069</code></pre>
 <p>Ils ont bien la même superficie.</p>
 </div>
 <div id="document-vote" class="section level2" number="1.2">
 <h2><span class="header-section-number">1.2</span> Document vote</h2>
-<pre class="r"><code>st_read(&quot;data/vote.gpkg&quot;)</code></pre>
+<pre class="r"><code>st_read(&quot;../data/vote.gpkg&quot;)</code></pre>
+<pre><code>## Multiple layers are present in data source C:\Users\Fujitsu E751\PERRAUD_Louis\data\vote.gpkg, reading layer `zone&#39;.
+## Use `st_layers&#39; to list all layer names and their type in a data source.
+## Set the `layer&#39; argument in `st_read&#39; to read a particular layer.
+## Reading layer `zone&#39; from data source 
+##   `C:\Users\Fujitsu E751\PERRAUD_Louis\data\vote.gpkg&#39; using driver `GPKG&#39;
+## Simple feature collection with 32 features and 5 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 661088.1 ymin: 6865338 xmax: 663354.7 ymax: 6869043
+## Projected CRS: RGF93 / Lambert-93</code></pre>
 <p>Ce dataframe sf contient également plusieurs couches.</p>
-<pre class="r"><code>st_layers(&quot;data/vote.gpkg&quot;)</code></pre>
+<pre class="r"><code>st_layers(&quot;../data/vote.gpkg&quot;)</code></pre>
+<pre><code>## Driver: GPKG 
+## Available layers:
+##   layer_name geometry_type features fields
+## 1       zone Multi Polygon       32      5
+## 2 inseeBondy       Polygon      188     42
+## 3   jointure Multi Polygon       30     18</code></pre>
 <p>On retrouve la couche Insee_bondy déjà extraite. Les couches “zone”
 et “jointure” sont deux couches géométriques dont les variables
 définissent les 32 bureaux de vote de Bondy. Comme la jointure contient
-18 champs contre 5 pour “zone”, on préférera la couche la plus
-riche.</p>
-<pre class="r"><code>Votes&lt;- st_read(&quot;data/vote.gpkg&quot;, &quot;jointure&quot;)</code></pre>
+18 champs contre 5 pour “zone”, on devrait préférer la couche la plus
+riche. Néanmoins on remarque que la couche jointure ne contient que 30
+bureaux, ce qui est étonnant, Bondy en compte 32. On choisit donc la
+couche zone.</p>
+<pre class="r"><code>Votes_z&lt;- st_read(&quot;../data/vote.gpkg&quot;, &quot;zone&quot;)</code></pre>
+<pre><code>## Reading layer `zone&#39; from data source 
+##   `C:\Users\Fujitsu E751\PERRAUD_Louis\data\vote.gpkg&#39; using driver `GPKG&#39;
+## Simple feature collection with 32 features and 5 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 661088.1 ymin: 6865338 xmax: 663354.7 ymax: 6869043
+## Projected CRS: RGF93 / Lambert-93</code></pre>
+<pre class="r"><code>Votes_z$bureauNo_1</code></pre>
+<pre><code>##  [1] NA                                             
+##  [2] &quot;ECOLE ELEMENTAIRE OLYMPE DE GOUGES&quot;           
+##  [3] &quot;SALLE MAURICE PETITJEAN&quot;                      
+##  [4] &quot;ECOLE MATERNELLE LEO LAGRANGE&quot;                
+##  [5] &quot;ECOLE MATERNELLE ROGER SALENGRO&quot;              
+##  [6] &quot;CENTRE DE LOISIRS COLUCHE - SALLE POLYVALENTE&quot;
+##  [7] &quot;ECOLE MATERNELLE NOUE CAILLET&quot;                
+##  [8] &quot;ECOLE MATERNELLE CAMILLE CLAUDEL&quot;             
+##  [9] &quot;CENTRE DE LOISIRS APPOLINAIRE&quot;                
+## [10] &quot;GYMNASE LEO LAGRANGE&quot;                         
+## [11] &quot;ECOLE ELEMENTAIRE LEO LAGRANGE&quot;               
+## [12] &quot;ECOLE ELEMENTAIRE PASTEUR&quot;                    
+## [13] &quot;ECOLE ELEMENTAIRE ANDRE BOULLOCHE&quot;            
+## [14] &quot;ECOLE ELEMENTAIRE NOUE CAILLET&quot;               
+## [15] &quot;ECOLE MATERNELLE PASTEUR&quot;                     
+## [16] &quot;CENTRE DE LOISIRS - SALLE COLUCHE&quot;            
+## [17] &quot;HOTEL DE VILLE - SALLE DES FETES&quot;             
+## [18] &quot;ECOLE ELEMENTAIRE MAINGUY-GUEHENNO&quot;           
+## [19] &quot;GYMNASE AIACHE - SALLE DANSE&quot;                 
+## [20] &quot;ECOLE MATERNELLE MAINGUY&quot;                     
+## [21] &quot;ESPACE MARCEL CHAUZY&quot;                         
+## [22] &quot;ECOLE ELEMENTAIRE SALENGRO&quot;                   
+## [23] &quot;ECOLE MATERNELLE HENRI SELLIER&quot;               
+## [24] &quot;CENTRE DE LOISIRS PIERRE CURIE&quot;               
+## [25] &quot;ECOLE MATERNELLE PIERRE CURIE&quot;                
+## [26] &quot;GYMNASE AIACHE&quot;                               
+## [27] &quot;ECOLE ELEMENTAIRE JULES FERRY&quot;                
+## [28] &quot;ECOLE MATERNELLE JEAN ZAY&quot;                    
+## [29] &quot;ECOLE MATERNELLE TERRE SAINT BLAISE&quot;          
+## [30] NA                                             
+## [31] &quot;SALLE BLANQUI - ESPACE MANDELA&quot;               
+## [32] &quot;ECOLE MATERNELLE JULES FERRY&quot;</code></pre>
+<p>En observant on constate que deux bureaux sont “NA”, c’est donc bien
+la couche jointure la plus intéressante.</p>
+<pre class="r"><code>Votes&lt;- st_read(&quot;../data/vote.gpkg&quot;, &quot;jointure&quot;)</code></pre>
+<pre><code>## Reading layer `jointure&#39; from data source 
+##   `C:\Users\Fujitsu E751\PERRAUD_Louis\data\vote.gpkg&#39; using driver `GPKG&#39;
+## Simple feature collection with 30 features and 18 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 661088.1 ymin: 6865338 xmax: 663354.7 ymax: 6869043
+## Projected CRS: RGF93 / Lambert-93</code></pre>
 </div>
 </div>
 

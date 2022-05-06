@@ -14,7 +14,7 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(cache = TRUE)
 # Passer la valeur suivante à TRUE pour reproduire les extractions.
-knitr::opts_chunk$set(eval = F)
+knitr::opts_chunk$set(eval = T)
 knitr::opts_chunk$set(warning = FALSE)
 ```
 
@@ -28,17 +28,17 @@ library(sf)
 ```
 
 ```{r}
-donnee<- st_read("data/insee.gpkg")
+donnee<- st_read("../data/insee.gpkg")
 ```
 
  Ce document gpkg, donc spatial, comporte plusieurs couches.
 ```{r}
-st_layers("data/insee.gpkg")
+st_layers("../data/insee.gpkg")
 ```
  Deux couches existent : "idf", île-de-France et "bondy". Notre étude se portera sur Bondy, c'est donc cette couche qui nous intéressera.
 
 ```{r}
-Insee_bondy <- st_read("data/insee.gpkg","bondy")
+Insee_bondy <- st_read("../data/insee.gpkg","bondy")
 summary(Insee_bondy)
 ```
  On voit qu'il s'agit d'un ensemble de variable (dictionnaire des variables : https://www.insee.fr/fr/statistiques/4176290?sommaire=4176305#dictionnaire) mesuré pour chaque carreau d'un carroyage de 188 carreaux. On peut vérifier que tous les carreaux ont la même superficie :
@@ -51,15 +51,19 @@ summary(Insee_bondy$surf_km2)
 
 
 ```{r}
-st_read("data/vote.gpkg")
+st_read("../data/vote.gpkg")
 ```
 Ce dataframe sf contient également plusieurs couches.
 ```{r}
-st_layers("data/vote.gpkg")
+st_layers("../data/vote.gpkg")
 ```
-On retrouve la couche Insee_bondy déjà extraite. Les couches "zone" et "jointure" sont deux couches géométriques dont les variables définissent les 32 bureaux de vote de Bondy. Comme la jointure contient 18 champs contre 5 pour "zone", on préférera la couche la plus riche.
+On retrouve la couche Insee_bondy déjà extraite. Les couches "zone" et "jointure" sont deux couches géométriques dont les variables définissent les 32 bureaux de vote de Bondy. Comme la jointure contient 18 champs contre 5 pour "zone", on devrait préférer la couche la plus riche. Néanmoins on remarque que la couche jointure ne contient que 30 bureaux, ce qui est étonnant, Bondy en compte 32. On choisit donc la couche zone.
 ```{r}
-Votes<- st_read("data/vote.gpkg", "jointure")
+Votes_z<- st_read("../data/vote.gpkg", "zone")
+Votes_z$bureauNo_1
 ```
-
+En observant on constate que deux bureaux sont "NA", c'est donc bien la couche jointure la plus intéressante.
+```{r}
+Votes<- st_read("../data/vote.gpkg", "jointure")
+```
 
