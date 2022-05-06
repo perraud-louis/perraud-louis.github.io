@@ -2,7 +2,7 @@ name: "PERRAUD L. Devoir final"
 navbar:
   left:
     - text: "Présentation des données"
-      href: script1
+      href: script1.html
     - text: "Première analyse :"
       href: script2.html
     - text: "Deuxième analyse : carroyage des votes"
