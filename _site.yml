@@ -2,7 +2,7 @@ name: "PERRAUD L. Devoir final"
 navbar:
   left:
     - text: "Présentation des données"
-      href: https://perraud-louis.github.io/script1.html
+      href: script1
     - text: "Première analyse :"
       href: script2.html
     - text: "Deuxième analyse : carroyage des votes"
